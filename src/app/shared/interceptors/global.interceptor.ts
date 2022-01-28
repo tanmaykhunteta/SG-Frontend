@@ -9,24 +9,14 @@ import {
   HttpEventType
 } from '@angular/common/http';
 
-import {
-	MatSnackBar
-} from '@angular/material/snack-bar';
+import { DataService } from '../services/data.service';
 
 import { catchError, map, Observable, throwError } from 'rxjs';
 
 @Injectable()
 export class GlobalInterceptor implements HttpInterceptor {
 
-  constructor(private _snackBar: MatSnackBar) {}
-
-  openSnackBar(message : string) {
-    this._snackBar.open(message, 'close', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-	  duration : 5000
-    });
-  }
+  constructor(private ds : DataService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 	const url = request.method + " : " + request.url;
@@ -64,7 +54,7 @@ export class GlobalInterceptor implements HttpInterceptor {
 			console.log("REQUEST DETAIL : ", reqDetails)
 			console.log("ERROR : ", error);
 			console.log("====================== ENDS")
-			this.openSnackBar(errorMsg)
+			this.ds.openSnackBar(errorMsg)
 			return throwError(() => errorMsg);
 		})
     );

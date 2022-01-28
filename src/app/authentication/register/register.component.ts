@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn,
 import { IRegister } from 'src/app/shared/models/user.model';
 import { AuthService } from '../services/auth.service';
 import { CustomErrors, CustomValidators } from 'src/app/shared/validators/custom.validators';
+import { DataService } from 'src/app/shared/services/data.service';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,7 @@ import { CustomErrors, CustomValidators } from 'src/app/shared/validators/custom
 export class RegisterComponent implements OnInit {
 	register : FormGroup = this.generateForm(); 
 	formSubmitted : boolean = false;
-	constructor(private fb : FormBuilder, private auths : AuthService) { }
+	constructor(private fb : FormBuilder, private auths : AuthService, private ds : DataService) { }
 
 	ngOnInit(): void {
 	}
@@ -31,9 +32,9 @@ export class RegisterComponent implements OnInit {
 		this.auths.register(registerDetails).subscribe({
 			next : (response) => {
 				if(response.success) {
-					alert('registration successful');
+					this.ds.openSnackBar('registration successful');
 				} else {
-					alert(response.message);
+					this.ds.openSnackBar(response.message);
 				}
 			}
 		})
