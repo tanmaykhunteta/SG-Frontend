@@ -1,1 +1,33 @@
-<p>login works!</p>
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title>Login</mat-card-title>
+        </mat-card-header>
+
+        <form class="example-form" [formGroup]="loginForm" (ngSubmit)="submit()">
+            
+            <mat-card-content>
+                
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Email" formControlName='email'>
+                </mat-form-field>
+                <app-error [control]="email" [showOnSubmit]="true" [submitted]="formSubmitted" patternText="ALPHA"></app-error>
+
+                <mat-form-field class="example-full-width">
+                    <input matInput type='password' placeholder="Password" formControlName='pswd'>
+                </mat-form-field>
+                <app-error [control]="pswd" [showOnSubmit]="true" [submitted]="formSubmitted" patternText="PASSWORD"></app-error>
+
+                <re-captcha (resolved)="resolved($event)" formControlName="reCaptcha" 
+                    siteKey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI">  
+                </re-captcha>
+    
+            </mat-card-content>
+
+            <button mat-stroked-button color="accent" class="btn-block">Login</button>
+  
+        </form>
+    </mat-card>
+</div>
+    
+  
