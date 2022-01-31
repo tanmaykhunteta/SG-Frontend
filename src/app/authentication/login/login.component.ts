@@ -3,6 +3,8 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn,
 import { ILogin, IRegister } from 'src/app/shared/models/user.model';
 import { AuthService } from '../services/auth.service';
 import { CustomErrors, CustomValidators } from 'src/app/shared/validators/custom.validators';
+import { Router } from '@angular/router';
+import { StateService } from 'src/app/shared/services/state.service';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +15,17 @@ export class LoginComponent implements OnInit {
 
   loginForm : FormGroup = this.generateForm(); 
 	formSubmitted : boolean = false;
-  constructor(private fb : FormBuilder, private auths : AuthService) { }
+	constructor(
+		private fb : FormBuilder, 
+		private auths : AuthService, 
+		private ss : StateService,
+		private router : Router  
+		) { }
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+	}
 
-  resolved(event : string) {
+  	resolved(event : string) {
 		console.log(event);
 	}
 
@@ -31,27 +38,25 @@ export class LoginComponent implements OnInit {
 		const loginDetails : ILogin = this.loginForm.value; 
 		this.auths.login(loginDetails).subscribe({
 			next : (response) => {
-				console.log(response);
-				if(response.message === "success") {
-					alert('Login successful');
-					localStorage.setItem("loginDetails", JSON.stringify(response));
+				if(response.success) {
+					this.router.navigate(['/user'])
+					this.ss.openSnackBar('Login successful');
 				} else {
-					alert(response.message);
+					this.ss.openSnackBar(response.message);
 				}
 			}
 		})
 	}
 
-  generateForm() : FormGroup {
+  	generateForm() : FormGroup {
 		return this.fb.group({
 			email : ['', [Validators.required, Validators.email]],
 			pswd : ['', [Validators.required, CustomValidators.password_pattern()]],
 			reCaptcha : ['', [Validators.required]]
-		} 
-		)
+		})
 	}
 
-  get email() : AbstractControl {
+  	get email() : AbstractControl {
 		return this.loginForm.controls['email'];
 	}
 

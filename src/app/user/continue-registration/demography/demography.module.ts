@@ -13,7 +13,6 @@ import { MaterialModule } from 'src/app/material.module';
     CommonModule,
     DemographyRoutingModule,
     MaterialModule,
-    
   ]
 })
 export class DemographyModule { }

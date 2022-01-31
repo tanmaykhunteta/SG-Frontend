@@ -1,8 +1,3 @@
-.errors {
-    margin-bottom : 8px;
-}
-
-.error {
-    font-size: 14px;
-    color: red
+[hidden] {
+    display: none
 }

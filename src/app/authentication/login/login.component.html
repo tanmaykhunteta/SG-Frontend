@@ -11,12 +11,12 @@
                 <mat-form-field class="example-full-width">
                     <input matInput placeholder="Email" formControlName='email'>
                 </mat-form-field>
-                <app-error [control]="email" [showOnSubmit]="true" [submitted]="formSubmitted" patternText="ALPHA"></app-error>
+                <app-error [control]="email" [submitted]="formSubmitted" patternText="ALPHA"></app-error>
 
                 <mat-form-field class="example-full-width">
                     <input matInput type='password' placeholder="Password" formControlName='pswd'>
                 </mat-form-field>
-                <app-error [control]="pswd" [showOnSubmit]="true" [submitted]="formSubmitted" patternText="PASSWORD"></app-error>
+                <app-error [control]="pswd" [submitted]="formSubmitted" patternText="PASSWORD"></app-error>
 
                 <re-captcha (resolved)="resolved($event)" formControlName="reCaptcha" 
                     siteKey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI">  

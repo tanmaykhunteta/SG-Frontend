@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { IRegister } from 'src/app/shared/models/user.model';
 import { AuthService } from '../services/auth.service';
-import { CustomErrors, CustomValidators } from 'src/app/shared/validators/custom.validators';
+import { CustomValidators } from 'src/app/shared/validators/custom.validators';
+import { Router } from '@angular/router';
+import { StateService } from 'src/app/shared/services/state.service';
 import { DataService } from 'src/app/shared/services/data.service';
 
 @Component({
@@ -13,7 +15,15 @@ import { DataService } from 'src/app/shared/services/data.service';
 export class RegisterComponent implements OnInit {
 	register : FormGroup = this.generateForm(); 
 	formSubmitted : boolean = false;
-	constructor(private fb : FormBuilder, private auths : AuthService, private ds : DataService) { }
+	countries : string[] = [];
+
+	constructor(
+		private fb : FormBuilder,
+		private auths : AuthService, 
+		private ss : StateService,
+		private ds : DataService,
+		private router : Router
+	) { }
 
 	ngOnInit(): void {
 	}
@@ -32,9 +42,10 @@ export class RegisterComponent implements OnInit {
 		this.auths.register(registerDetails).subscribe({
 			next : (response) => {
 				if(response.success) {
-					this.ds.openSnackBar('registration successful');
+					this.ss.openSnackBar('registration successful');
+					this.router.navigate(['/user'])
 				} else {
-					this.ds.openSnackBar(response.message);
+					this.ss.openSnackBar(response.message);
 				}
 			}
 		})
@@ -47,9 +58,25 @@ export class RegisterComponent implements OnInit {
 			email : ['', [Validators.required, Validators.email]],
 			pswd : ['', [Validators.required, CustomValidators.password_pattern()]],
 			cnfm_pswd : ['', [Validators.required]],
+			gndr : ['male', Validators.required],
+			dob : ['', Validators.required],
+			country : ['', Validators.required],
+			prvcyPlcy : ['', Validators.required],
 			reCaptcha : ['', [Validators.required]]
 		}, {
 			validators : [CustomValidators.match_pswds_validator()]
+		})
+	}
+
+	getCountries() {
+		this.ds.getCountries().subscribe({
+			next : (response) => {
+				if(response.success) {
+					this.countries = response.data || [];
+				} else {
+					this.ss.openSnackBar(response.message)
+				}
+			}
 		})
 	}
 
