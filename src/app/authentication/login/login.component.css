@@ -1,0 +1,56 @@
+.login-wrapper {
+    padding: 15px;
+    display: flex;
+    
+}
+
+.login-head {
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.graphics {
+    flex : 3
+}
+
+.login-form {
+    flex : 1;
+}
+
+.group {
+    display: flex;
+}
+
+
+
+.form-group {
+    width : 100%;
+    padding: 5px 5px;
+}
+
+
+
+
+mat-label {
+    font-weight: bold;
+}
+
+
+
+mat-radio-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.submit {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.submit button{
+    font-size: 22px;
+    padding: 5px 10px;
+}
+

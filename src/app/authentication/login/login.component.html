@@ -1,33 +1,41 @@
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
-    <mat-card class="box">
-        <mat-card-header>
-            <mat-card-title>Login</mat-card-title>
-        </mat-card-header>
+<div class="login-wrapper">
+    <div class="graphics">
 
-        <form class="example-form" [formGroup]="loginForm" (ngSubmit)="submit()">
-            
-            <mat-card-content>
-                
-                <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Email" formControlName='email'>
-                </mat-form-field>
-                <app-error [control]="email" [showOnSubmit]="true" [submitted]="formSubmitted" patternText="ALPHA"></app-error>
+    </div>
+        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="submit()">
+            <h1 class='login-head'>Login to Survey Gravity</h1>
+            <div class="group">
+                <div class="form-group">
+                    <mat-form-field apperance="outline" class="form-field-class">
+                        <mat-label for="email">Email</mat-label>
+                        <input matInput placeholder="Email" formControlName='email'>
+                    </mat-form-field>
+                    <app-error [control]="email" [submitted]="formSubmitted" patternText="ALPHA"></app-error>
+                </div>
+            </div>
 
-                <mat-form-field class="example-full-width">
+            <div class="group">
+                <div class="form-group">
+                <mat-form-field class="example-full-width" apperance="outline">
+                    <mat-label for="pswd">Password</mat-label>
                     <input matInput type='password' placeholder="Password" formControlName='pswd'>
                 </mat-form-field>
-                <app-error [control]="pswd" [showOnSubmit]="true" [submitted]="formSubmitted" patternText="PASSWORD"></app-error>
+                <app-error [control]="pswd" [submitted]="formSubmitted" patternText="PASSWORD"></app-error>
+                </div>
+            </div>
 
-                <re-captcha (resolved)="resolved($event)" formControlName="reCaptcha" 
-                    siteKey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI">  
-                </re-captcha>
-    
-            </mat-card-content>
+            <div class="group fx-al-center">
+                <div class="form-group">
+                    <re-captcha (resolved)="resolved($event)" formControlName="reCaptcha" 
+                        siteKey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI">  
+                    </re-captcha>
+                </div>
 
-            <button mat-stroked-button color="accent" class="btn-block">Login</button>
-  
+                <div class="form-group submit">
+                    <button mat-raised-button color="warn" class="btn-block">Login</button>
+                </div>
+            </div>
         </form>
-    </mat-card>
-</div>
+    </div>
     
   
