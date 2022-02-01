@@ -1,8 +1,16 @@
+
 .login-wrapper {
+ 
     padding: 15px;
     display: flex;
-    
+    min-height: 80vh;
 }
+
+/* .graphics {
+    background : url('http://localhost:3000/images/gravity.png');
+    background-repeat: no-repeat;
+    background-position-x: center;
+} */
 
 .login-head {
     text-align: center;
@@ -28,11 +36,14 @@
     padding: 5px 5px;
 }
 
-
-
-
 mat-label {
     font-weight: bold;
+    font-size: 16px;
+}
+
+mat-form-field mat-label {
+    background : white;
+    padding : 0px 5px;
 }
 
 
@@ -50,7 +61,11 @@ mat-radio-group {
 }
 
 .submit button{
-    font-size: 22px;
+    font-size: 20px;
     padding: 5px 10px;
 }
 
+a{
+    padding-left: 100px;
+    color: rgb(8, 7, 7);
+}

@@ -6,7 +6,7 @@
             <h1 class='login-head'>Login to Survey Gravity</h1>
             <div class="group">
                 <div class="form-group">
-                    <mat-form-field apperance="outline" class="form-field-class">
+                    <mat-form-field class="example-full-width" appearance="outline" >
                         <mat-label for="email">Email</mat-label>
                         <input matInput placeholder="Email" formControlName='email'>
                     </mat-form-field>
@@ -16,7 +16,7 @@
 
             <div class="group">
                 <div class="form-group">
-                <mat-form-field class="example-full-width" apperance="outline">
+                <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label for="pswd">Password</mat-label>
                     <input matInput type='password' placeholder="Password" formControlName='pswd'>
                 </mat-form-field>
@@ -32,7 +32,13 @@
                 </div>
 
                 <div class="form-group submit">
-                    <button mat-raised-button color="warn" class="btn-block">Login</button>
+                    <button mat-raised-button color="warn" >Login</button>
+                </div>
+            </div>
+
+            <div class="group">
+                <div class="form-group">
+                    <mat class="example-margin" formControlName='privacyPolicy'> <a href="javascript:void(0)">Help! I forgot my password!</a></mat>
                 </div>
             </div>
         </form>

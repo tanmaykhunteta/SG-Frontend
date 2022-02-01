@@ -31,24 +31,25 @@ export class CustomValidators {
             const p = pswdControl.value;
             const errors : any = {}
             let invalid = false
+            if(!p) return null // handled by Validator.required
             if (p.length < 8) {
                 errors['minlength'] = {}
                 errors['minlength'].requiredLength = 8;
                 invalid = true
             }
-            if (p.search(/[a-z]/) < 0) {
+            else if (p.search(/[a-z]/) < 0) {
                 errors[CustomErrors.password.noLower] = true
                 invalid = true
             }
-            if (p.search(/[A-Z]/) < 0) {
+            else if (p.search(/[A-Z]/) < 0) {
                 errors[CustomErrors.password.noUpper] = true
                 invalid = true
             }
-            if (p.search(/[$@&*!\(\)\.]/) < 0) {
+            else if (p.search(/[$@&*!\(\)\.]/) < 0) {
                 errors[CustomErrors.password.noSpecialChar] = true;
                 invalid = true
             }
-            if (p.search(/[0-9]/) < 0) {
+            else if (p.search(/[0-9]/) < 0) {
                 errors[CustomErrors.password.noDigit] = true
                 invalid = true
             }

@@ -18,7 +18,8 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { MatSelectModule } from '@angular/material/select';
 import {MatProgressBarModule} from '@angular/material/progress-bar'; 
 import { MatSnackBarModule } from "@angular/material/snack-bar";
-
+import { MatRadioModule } from '@angular/material/radio'
+import { MatCheckboxModule } from '@angular/material/checkbox'
 const material =[
     MatCardModule,
     MatInputModule,
@@ -37,7 +38,9 @@ const material =[
     MatSelectModule,
     FlexLayoutModule, 
     MatProgressBarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatRadioModule,
+    MatCheckboxModule
 ];
 
 @NgModule({

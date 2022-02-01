@@ -1,16 +1,16 @@
-<div class="errors" [hidden]="!(showOnSubmit? submitted : (control?.invalid && (control?.touched || control?.dirty)))">
-    <p class="error" [hidden]="!(control?.errors?.['required'])">Field is required</p>
-    <p class="error" [hidden]="!(control?.errors?.['pattern'])">Invalid Input ({{patternText}})</p>
-    <p class="error" [hidden]="!(control?.errors?.['min'])">Invalid Input : (minimum value should be more than or equal to : {{control?.errors?.["max"]?.min}})</p>
-    <p class="error" [hidden]="!(control?.errors?.['max'])">Invalid Input : (maximum value should be less than or equal to : {{control?.errors?.["max"]?.max}})</p>
-    <p class="error" [hidden]="!(control?.errors?.['minlength'])">Invalid Input (minimum length required is : {{control?.errors?.["minlength"]?.requiredLength}})</p>
-    <p class="error" [hidden]="!(control?.errors?.['maxlength'])">Invalid Input (maximum length should be : {{control?.errors?.["maxlength"]?.requiredLength}})</p>
-    <p class="error" [hidden]="!(control?.errors?.['email'])">Invalid Email</p>
-    <p class="error" [hidden]="!(control?.errors?.[customErrors.unmatchedPswds])">Passwords doesn't match</p>
+<span class="errors" [hidden]="!(showOnSubmit? submitted : (control?.invalid && (control?.touched || control?.dirty || submitted)))">
+    <mat-error class="error" [hidden]="!(control?.errors?.['required'])">Field is required</mat-error>
+    <mat-error class="error" [hidden]="!(control?.errors?.['pattern'])">Invalid Input ({{patternText}})</mat-error>
+    <mat-error class="error" [hidden]="!(control?.errors?.['min'])">Invalid Input : (minimum value should be more than or equal to : {{control?.errors?.["max"]?.min}})</mat-error>
+    <mat-error class="error" [hidden]="!(control?.errors?.['max'])">Invalid Input : (maximum value should be less than or equal to : {{control?.errors?.["max"]?.max}})</mat-error>
+    <mat-error class="error" [hidden]="!(control?.errors?.['minlength'])">Invalid Input (minimum length required is : {{control?.errors?.["minlength"]?.requiredLength}})</mat-error>
+    <mat-error class="error" [hidden]="!(control?.errors?.['maxlength'])">Invalid Input (maximum length should be : {{control?.errors?.["maxlength"]?.requiredLength}})</mat-error>
+    <mat-error class="error" [hidden]="!(control?.errors?.['email'])">Invalid Email</mat-error>
+    <mat-error class="error" [hidden]="!(control?.errors?.[customErrors.unmatchedPswds])">Passwords doesn't match</mat-error>
     <ng-container aria-label="password-errors">
-        <p class="error" [hidden]="!(control?.errors?.[customErrors.password.noLower])">Your password must contain at least one lowercase letter.</p>
-        <p class="error" [hidden]="!(control?.errors?.[customErrors.password.noUpper])">Your password must contain at least one uppercase letter.</p>
-        <p class="error" [hidden]="!(control?.errors?.[customErrors.password.noDigit])">Your password must contain at least one digit.</p>
-        <p class="error" [hidden]="!(control?.errors?.[customErrors.password.noSpecialChar])">Your password must contain at least one special char ($, &, *, @, ., !)</p>
+        <mat-error class="error" [hidden]="!(control?.errors?.[customErrors.password.noLower])">Your password must contain at least one lowercase letter.</mat-error>
+        <mat-error class="error" [hidden]="!(control?.errors?.[customErrors.password.noUpper])">Your password must contain at least one uppercase letter.</mat-error>
+        <mat-error class="error" [hidden]="!(control?.errors?.[customErrors.password.noDigit])">Your password must contain at least one digit.</mat-error>
+        <mat-error class="error" [hidden]="!(control?.errors?.[customErrors.password.noSpecialChar])">Your password must contain at least one special char ($, &, *, @, ., !)</mat-error>
     </ng-container>
-</div>
+</span>

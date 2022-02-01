@@ -9,6 +9,9 @@ export interface IRegister extends Omit<IBasicUser, '_id'>{
     pswd : string,
     cnfm_pswd : string,
     recaptcha : boolean
+    prvcyPlcy : boolean,
+    gender : string,
+    country : string
 }
 
 export interface ILogin {
