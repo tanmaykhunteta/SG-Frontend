@@ -50,5 +50,9 @@ export class AuthService {
 			})
 		)
 	}
+
+	sendToken(token: string){
+		return this.http.post<any>(this.baseURL + "users/recaptcha", {recaptcha: token})
+	  }
 	
 }
