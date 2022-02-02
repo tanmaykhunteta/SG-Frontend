@@ -27,6 +27,19 @@ export class LoginComponent implements OnInit {
 
   	resolved(event : string) {
 		console.log(event);
+		this.sendTokenToBackend(event);
+	}
+
+	sendTokenToBackend(token: string){
+		this.auths.sendToken(token).subscribe(
+			res => {
+				console.log(res);
+			},
+			err => {
+				console.log(err);
+			}
+
+		);
 	}
 
   submit() {
