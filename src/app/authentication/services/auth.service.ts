@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { IRegister, ILogin } from 'src/app/shared/models/user.model';
-import { map, Observable, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { APIResponse } from 'src/app/shared/models/general.model';
 import { StateService } from 'src/app/shared/services/state.service';
 

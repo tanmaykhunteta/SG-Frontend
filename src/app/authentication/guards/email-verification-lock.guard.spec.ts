@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EmailVerificationGuard } from './email-verification.guard';
+import { EmailVerificationGuard } from './email-verification-lock.guard';
 
-describe('EmailVerificationGuard', () => {
+describe('EmailVerificationLockGuard', () => {
   let guard: EmailVerificationGuard;
 
   beforeEach(() => {

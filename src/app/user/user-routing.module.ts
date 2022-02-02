@@ -4,7 +4,7 @@ import { UserComponent } from './user.component';
 
 const routes: Routes = [
   { path: '', component: UserComponent, children : []},
-  {path: 'registration/continue', loadChildren: () => import('./continue-registration/continue-registration.module').then(m => m.ContinueRegistrationModule) },
+  { path: 'registration/continue', loadChildren: () => import('./continue-registration/continue-registration.module').then(m => m.ContinueRegistrationModule) },
 ];
 
 @NgModule({

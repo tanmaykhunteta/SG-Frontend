@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { StateService } from '../shared/services/state.service';
 
 @Component({
   selector: 'app-authentication',
@@ -7,7 +6,7 @@ import { StateService } from '../shared/services/state.service';
   styleUrls: ['./authentication.component.css']
 })
 export class AuthenticationComponent implements OnInit {
-    constructor(private ss: StateService) { 
+    constructor() { 
 
     }
 
