@@ -2,8 +2,11 @@
     <img src="http://localhost:3000/images/gravity.png" alt="logo" style='width: 50px; margin-right: 8px'>
     <span>Survey Gravity</span>
     <span class="example-spacer"></span>
-    <button mat-raised-button color='warn' class="example-icon" aria-label="route to login" routerLink="/login" routerLinkActive="hide">Login</button>
-    <button mat-raised-button color='warn' class="example-icon" aria-label="route to register" routerLink="/register" routerLinkActive="hide">Register</button>
+    <div class="nav" *ngIf='!signedIn'>
+        <button mat-raised-button color='warn' class="example-icon" aria-label="route to login" routerLink="/login" routerLinkActive="hide">Login</button>
+        <button mat-raised-button color='warn' class="example-icon" aria-label="route to register" routerLink="/register" routerLinkActive="hide">Register</button>
+    </div>
+    <button mat-raised-button color='warn' class="example-icon" aria-label="log out button" [class.hide] ="!signedIn" (click)='logout()'>Log out</button>
 </mat-toolbar>
-  
+
 <router-outlet></router-outlet>

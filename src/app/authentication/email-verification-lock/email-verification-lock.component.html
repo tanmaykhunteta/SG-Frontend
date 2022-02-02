@@ -1,0 +1,13 @@
+<section>
+    <div class="content">
+        <div class="image">
+            <img src="assets/images/email.png" alt="">
+        </div>
+        <div class="text">
+            <b>Hii <span>{{ (userSession$ | async)?.fn }}</span>,</b> we have sent you a verification mail, please verify your email to continue to your dashboard!
+        </div>
+        <div class="resend">
+            Didn't Receive? <a href='javascript:void(0)'>resend</a>
+        </div>
+    </div>
+</section>

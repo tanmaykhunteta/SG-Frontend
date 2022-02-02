@@ -4,3 +4,8 @@ export interface APIResponse<IData = any> {
     message : string,
     data : IData
 }
+
+export interface ICountry {
+    code : string,
+    name : string
+}

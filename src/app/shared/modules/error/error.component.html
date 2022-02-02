@@ -1,10 +1,10 @@
 <span class="errors" [hidden]="!(showOnSubmit? submitted : (control?.invalid && (control?.touched || control?.dirty || submitted)))">
     <mat-error class="error" [hidden]="!(control?.errors?.['required'])">Field is required</mat-error>
-    <mat-error class="error" [hidden]="!(control?.errors?.['pattern'])">Invalid Input ({{patternText}})</mat-error>
-    <mat-error class="error" [hidden]="!(control?.errors?.['min'])">Invalid Input : (minimum value should be more than or equal to : {{control?.errors?.["max"]?.min}})</mat-error>
-    <mat-error class="error" [hidden]="!(control?.errors?.['max'])">Invalid Input : (maximum value should be less than or equal to : {{control?.errors?.["max"]?.max}})</mat-error>
-    <mat-error class="error" [hidden]="!(control?.errors?.['minlength'])">Invalid Input (minimum length required is : {{control?.errors?.["minlength"]?.requiredLength}})</mat-error>
-    <mat-error class="error" [hidden]="!(control?.errors?.['maxlength'])">Invalid Input (maximum length should be : {{control?.errors?.["maxlength"]?.requiredLength}})</mat-error>
+    <mat-error class="error" [hidden]="!(control?.errors?.['pattern'])">{{patternText}}</mat-error>
+    <mat-error class="error" [hidden]="!(control?.errors?.['min'])">value should be more than or equal to : {{control?.errors?.["min"]?.min}}</mat-error>
+    <mat-error class="error" [hidden]="!(control?.errors?.['max'])">value should be less than or equal to : {{control?.errors?.["max"]?.max}}</mat-error>
+    <mat-error class="error" [hidden]="!(control?.errors?.['minlength'])">minimum length required is : {{control?.errors?.["minlength"]?.requiredLength}}</mat-error>
+    <mat-error class="error" [hidden]="!(control?.errors?.['maxlength'])">length should be less than: {{control?.errors?.["maxlength"]?.requiredLength}}</mat-error>
     <mat-error class="error" [hidden]="!(control?.errors?.['email'])">Invalid Email</mat-error>
     <mat-error class="error" [hidden]="!(control?.errors?.[customErrors.unmatchedPswds])">Passwords doesn't match</mat-error>
     <ng-container aria-label="password-errors">
