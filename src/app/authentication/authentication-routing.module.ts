@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthenticationComponent } from './authentication.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { SignInPageGuard } from './guards/sign-in-page.guard';
+import { EmailVerificationGuard } from './guards/email-verification-lock.guard';
 
-const routes: Routes = [{ path: '', component: AuthenticationComponent, children: [
-  {path: '', redirectTo: "login", pathMatch: 'full'},
-  {path : 'register', component: RegisterComponent},
-  {path: 'login', component: LoginComponent},
-] },
-  { path: 'email-verification-failed', loadChildren: () => import('./email-verification-result/email-verification-result.module').then(m => m.EmailVerificationResultModule) }
+
+const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch : "full"},
+  { path: 'email-verification-required', canLoad : [EmailVerificationGuard], canActivate: [EmailVerificationGuard], loadChildren: () => import('./email-verification-lock/email-verification-lock.module').then(m => m.EmailVerificationLockModule) },
+  { path: 'verify-email', loadChildren: () => import('./verify-email/verify-email.module').then(m => m.VerifyEmailModule) },
+  { path: 'register', canActivate: [SignInPageGuard], loadChildren: () => import('./register/register.module').then(m => m.RegisterModule) },
+  { path: 'login', canActivate: [SignInPageGuard], loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
 ];
 
 

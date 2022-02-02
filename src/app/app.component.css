@@ -6,4 +6,8 @@
 .hide {
     display: none;
 }
+
+.nav button {
+    margin : 0px 5px;
+}
 /* end toolbar */

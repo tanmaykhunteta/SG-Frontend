@@ -6,6 +6,8 @@ import { CustomValidators } from 'src/app/shared/validators/custom.validators';
 import { Router } from '@angular/router';
 import { StateService } from 'src/app/shared/services/state.service';
 import { DataService } from 'src/app/shared/services/data.service';
+import { ICountry } from 'src/app/shared/models/general.model';
+import { config } from 'src/config/config';
 
 @Component({
   selector: 'app-register',
@@ -13,9 +15,10 @@ import { DataService } from 'src/app/shared/services/data.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-	register : FormGroup = this.generateForm(); 
+	register : FormGroup; 
 	formSubmitted : boolean = false;
-	countries : string[] = [];
+	countries : ICountry[] = [];
+	yearRange : { MIN : number, MAX : number};
 
 	constructor(
 		private fb : FormBuilder,
@@ -23,27 +26,30 @@ export class RegisterComponent implements OnInit {
 		private ss : StateService,
 		private ds : DataService,
 		private router : Router
-	) { }
+	) { 
+		const currentYear = (new Date()).getFullYear();
+		this.yearRange = {
+			MIN : (currentYear - 100),
+			MAX :  (currentYear - config.MIN_REGISTRATION_AGE)
+		}
 
-	ngOnInit(): void {
+		this.register = this.generateForm()
 	}
 
-	resolved(event : string) {
-		console.log(event);
+	ngOnInit(): void {
+		this.getCountries();
 	}
 
 	submit() {
 		this.formSubmitted = true;
-		if(this.register.invalid) {
-			return 
-		}
+		if(this.register.invalid) return 
 
 		const registerDetails : IRegister = this.register.value; 
 		this.auths.register(registerDetails).subscribe({
 			next : (response) => {
 				if(response.success) {
 					this.ss.openSnackBar('registration successful');
-					this.router.navigate(['/user'])
+					this.router.navigate(['/email-verification-required'])
 				} else {
 					this.ss.openSnackBar(response.message);
 				}
@@ -59,17 +65,17 @@ export class RegisterComponent implements OnInit {
 			pswd : ['', [Validators.required, CustomValidators.password_pattern()]],
 			cnfm_pswd : ['', [Validators.required]],
 			gndr : ['male', Validators.required],
-			dob : ['', Validators.required],
-			country : ['', Validators.required],
+			yob : ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(this.yearRange.MIN), Validators.max(this.yearRange.MAX)]],
+			cntry : ['', Validators.required],
 			prvcyPlcy : ['', Validators.required],
-			reCaptcha : ['', [Validators.required]]
+			reCaptcha : ['', Validators.required]
 		}, {
 			validators : [CustomValidators.match_pswds_validator()]
 		})
 	}
 
 	getCountries() {
-		this.ds.getCountries().subscribe({
+		this.ds.getCountries(['name']).subscribe({
 			next : (response) => {
 				if(response.success) {
 					this.countries = response.data || [];
@@ -80,6 +86,10 @@ export class RegisterComponent implements OnInit {
 		})
 	}
 
+
+	resolved(event : string) {
+		return;
+	}
 
 	get fn() : AbstractControl {
 		return this.register.controls['fn']
@@ -99,5 +109,17 @@ export class RegisterComponent implements OnInit {
 
 	get cnfm_pswd() : AbstractControl {
 		return this.register.controls['cnfm_pswd']
+	}
+
+	get yob() : AbstractControl {
+		return this.register.controls['yob'];
+	}
+
+	get gndr() : AbstractControl {
+		return this.register.controls['gndr']
+	}
+
+	get cntry() : AbstractControl {
+		return this.register.controls['cntry']
 	}
 }

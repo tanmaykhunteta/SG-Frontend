@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
 		this.auths.login(loginDetails).subscribe({
 			next : (response) => {
 				if(response.success) {
-					this.router.navigate(['/user'])
+					this.router.navigate(['/dashboard'])
 					this.ss.openSnackBar('Login successful');
 				} else {
 					this.ss.openSnackBar(response.message);

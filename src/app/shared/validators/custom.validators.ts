@@ -26,6 +26,7 @@ export class CustomValidators {
 		}
 	}
 
+
     static password_pattern() : ValidatorFn {
         return (pswdControl : AbstractControl) : ValidationErrors | null => {
             const p = pswdControl.value;
@@ -35,6 +36,11 @@ export class CustomValidators {
             if (p.length < 8) {
                 errors['minlength'] = {}
                 errors['minlength'].requiredLength = 8;
+                invalid = true
+            }
+            else if(p.length > 15) {
+                errors['maxlength'] = {}
+                errors['maxlength'].requiredLength = 15
                 invalid = true
             }
             else if (p.search(/[a-z]/) < 0) {

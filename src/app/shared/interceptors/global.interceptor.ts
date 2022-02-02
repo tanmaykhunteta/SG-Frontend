@@ -14,13 +14,14 @@ import { DataService } from '../services/data.service';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { config } from 'src/config/config'
 import { StateService } from '../services/state.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class GlobalInterceptor implements HttpInterceptor {
 	
   constructor(
 	private ds : DataService, 
-	private ss : StateService
+	private ss : StateService,
 	) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -70,6 +71,9 @@ export class GlobalInterceptor implements HttpInterceptor {
 			console.log("ERROR : ", error);
 			console.log("====================== ENDS")
 			this.ss.openSnackBar(errorMsg)
+			if(error.status == 401) {
+				this.ss.logout();
+			}
 			return throwError(() => errorMsg);
 		})
     );

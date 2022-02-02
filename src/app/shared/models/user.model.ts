@@ -3,6 +3,11 @@ export interface IBasicUser {
     fn : string,
     ln : string,
     email : string,
+    gndr? : boolean,
+    yob ?: number, 
+    cntry? : string,
+    em_verified?: boolean,
+    em_verifiedOn? : boolean
 }
 
 export interface IRegister extends Omit<IBasicUser, '_id'>{
@@ -10,8 +15,6 @@ export interface IRegister extends Omit<IBasicUser, '_id'>{
     cnfm_pswd : string,
     recaptcha : boolean
     prvcyPlcy : boolean,
-    gender : string,
-    country : string
 }
 
 export interface ILogin {
@@ -22,8 +25,6 @@ export interface ILogin {
 
 
 export interface IFullUser extends IBasicUser {
-    gender : boolean,
-    dob : Date, 
 }
 
 class User implements IBasicUser {

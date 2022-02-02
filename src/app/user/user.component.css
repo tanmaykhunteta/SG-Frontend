@@ -1,0 +1,20 @@
+.banner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.banner .text, .banner .head {
+    letter-spacing: 1px;
+}
+
+.banner .head {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.banner .text {
+    font-size: 18px
+}

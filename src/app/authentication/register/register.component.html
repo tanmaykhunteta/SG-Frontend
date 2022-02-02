@@ -50,59 +50,47 @@
 					</div>
 				</div>
 
-				<div class="group">
-					<div class='form-group'>
-						<mat-radio-group formControlName="gndr">
-						  <mat-label>Gender: </mat-label>
-						  <mat-radio-button value="male">Male</mat-radio-button>
-						  <mat-radio-button value="female">Female</mat-radio-button>
-						</mat-radio-group>
-					</div>
-				</div>
 
 				<div class="group">
 					<div class='form-group'>
 						<mat-form-field appearance="outline">
-							<mat-select required>
-								<mat-option value=""></mat-option>
+							<mat-select formControlName='gndr'>
+								<mat-option value="male">Male</mat-option>
+								<mat-option value="female">Female</mat-option>
+								<mat-option value="others">Others</mat-option> 
 							</mat-select>
-							<mat-label>Date of Birth</mat-label>
+							<mat-label>Gender</mat-label>
 						</mat-form-field>
-					</div>
-	
-					<div class="form-group">
-						<mat-form-field appearance="outline">
-							<mat-select required>
-								<mat-option value=""></mat-option>
-							</mat-select>
-							<mat-label>Month of Birth</mat-label>
-						</mat-form-field>
+						<app-error [control]="gndr" [submitted]="formSubmitted" patternText="ALPHA"></app-error>	
 					</div>
 						
 					<div class="form-group">
 						<mat-form-field appearance="outline">
-							<mat-select required>
-								<mat-option value="option"></mat-option>
-							</mat-select>
+							<!-- <mat-select formControlName='yob'>
+								<mat-option value="{{year}}" *ngFor='let year of ("years" | calendar:null:100)'>{{year}}</mat-option>
+							</mat-select> -->
 							<mat-label>Year of Birth</mat-label>
+							<input matInput placeholder="{{yearRange.MIN + ' - ' + yearRange.MAX}}" formControlName='yob'>
 						</mat-form-field>
+						<app-error [control]="yob" [submitted]="formSubmitted" patternText="please enter a valid year, ex : 1999"></app-error>	
 					</div>	
 				</div>
 
 				<div class="group">
 					<div class="form-group">
 						<mat-form-field appearance="outline">
-							<mat-select required>
-								<mat-option value="option">Option</mat-option>
+							<mat-select formControlName='cntry'>
+								<mat-option *ngFor='let country of countries' value="{{country.name}}">{{country.name}}</mat-option>
 							</mat-select>
 							<mat-label>Country</mat-label>
 						</mat-form-field>
+						<app-error [control]="cntry" [submitted]="formSubmitted" patternText="ALPHA"></app-error>	
 					</div>
 				</div>
 
 				<div class="group">
 					<div class="form-group">
-						<mat-checkbox class="example-margin" formControlName='privacyPolicy'>By checking this box, I agree to Survey Gravity's <a href="javascript:void(0)">Privacy Policy</a> and <a href="javascript:void(0)">Terms & Conditions</a></mat-checkbox>
+						<mat-checkbox class="example-margin" formControlName='prvcyPlcy'>By checking this box, I agree to Survey Gravity's <a href="javascript:void(0)">Privacy Policy</a> and <a href="javascript:void(0)">Terms & Conditions</a></mat-checkbox>
 					</div>
 				</div>
 				

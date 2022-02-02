@@ -1,0 +1,26 @@
+<section>
+    <div class="content successful" *ngIf='isChecked && success'>
+        <div class="image">
+            <img src="assets/images/email-verified.png" alt="email verified icon">
+        </div>
+        <div class="text">
+            <b>Congratulations!</b> Your email is now verified 
+        </div>
+        <div class="resend">
+            Move to <a routerLink="/dashboard">Dashboard?</a>
+        </div>
+    </div>
+
+    <div class="content successful" *ngIf='isChecked && !success'>
+        <div class="image">
+            <img src="assets/images/email-unsuccessful.png" alt="email verified icon">
+        </div>
+        <div class="text">
+            Email verification unsuccessfull, possible reason : {{message || "unknown"}}
+        </div>
+        <div class="resend">
+            <a href='javascript:void(0)'>Resend</a> email verification token?
+        </div>
+    </div>
+</section>
+
