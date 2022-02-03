@@ -68,7 +68,7 @@ export class RegisterComponent implements OnInit {
 			yob : ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(this.yearRange.MIN), Validators.max(this.yearRange.MAX)]],
 			cntry : ['', Validators.required],
 			prvcyPlcy : ['', Validators.required],
-			// reCaptcha : ['', Validators.required]
+			reCaptcha : ['', Validators.required]
 		}, {
 			validators : [CustomValidators.match_pswds_validator()]
 		})
@@ -88,7 +88,19 @@ export class RegisterComponent implements OnInit {
 
 
 	resolved(event : string) {
-		return;
+		this.sendTokenToBackend(event);
+	}
+
+	sendTokenToBackend(token: string){
+		this.auths.sendToken(token).subscribe(
+			res => {
+				console.log(res);
+			},
+			err => {
+				console.log(err);
+			}
+
+		);
 	}
 
 	get fn() : AbstractControl {
@@ -121,5 +133,9 @@ export class RegisterComponent implements OnInit {
 
 	get cntry() : AbstractControl {
 		return this.register.controls['cntry']
+	}
+
+	get reCaptcha() : AbstractControl {
+		return this.register.controls['reCaptcha'];
 	}
 }

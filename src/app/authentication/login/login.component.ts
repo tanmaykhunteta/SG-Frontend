@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
 	}
 
   	resolved(event : string) {
-		console.log(event);
 		this.sendTokenToBackend(event);
 	}
 
@@ -65,7 +64,7 @@ export class LoginComponent implements OnInit {
 		return this.fb.group({
 			email : ['', [Validators.required, Validators.email]],
 			pswd : ['', [Validators.required, CustomValidators.password_pattern()]],
-			reCaptcha : ['', [Validators.required]]
+			reCaptcha : ['', [Validators.required]],
 		})
 	}
 
@@ -77,4 +76,7 @@ export class LoginComponent implements OnInit {
 		return this.loginForm.controls['pswd'];
 	}
 
+	get reCaptcha() : AbstractControl {
+		return this.loginForm.controls['reCaptcha'];
+	}
 }
