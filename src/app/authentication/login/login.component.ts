@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
 	// 		}
 
 	// 	);
-	// }
+
 
   submit() {
 		this.formSubmitted = true;
