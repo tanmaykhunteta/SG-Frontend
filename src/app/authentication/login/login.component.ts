@@ -25,21 +25,21 @@ export class LoginComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
-  	resolved(event : string) {
-		this.sendTokenToBackend(event);
-	}
+  	// resolved(event : string) {
+	// 	this.sendTokenToBackend(event);
+	// }
 
-	sendTokenToBackend(token: string){
-		this.auths.sendToken(token).subscribe(
-			res => {
-				console.log(res);
-			},
-			err => {
-				console.log(err);
-			}
+	// sendTokenToBackend(token: string){
+	// 	this.auths.sendToken(token).subscribe(
+	// 		res => {
+	// 			console.log(res);
+	// 		},
+	// 		err => {
+	// 			console.log(err);
+	// 		}
 
-		);
-	}
+	// 	);
+	// }
 
   submit() {
 		this.formSubmitted = true;

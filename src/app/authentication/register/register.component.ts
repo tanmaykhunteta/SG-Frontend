@@ -41,6 +41,7 @@ export class RegisterComponent implements OnInit {
 	}
 
 	submit() {
+	
 		this.formSubmitted = true;
 		if(this.register.invalid) return 
 
@@ -53,6 +54,12 @@ export class RegisterComponent implements OnInit {
 				} else {
 					this.ss.openSnackBar(response.message);
 				}
+			},
+			error:(err) => {
+				// if(err.code=="recaptcha-failed"){
+				// 	this.reCaptcha.setValue(null);
+				// }
+
 			}
 		})
 	}
@@ -87,21 +94,7 @@ export class RegisterComponent implements OnInit {
 	}
 
 
-	resolved(event : string) {
-		this.sendTokenToBackend(event);
-	}
-
-	sendTokenToBackend(token: string){
-		this.auths.sendToken(token).subscribe(
-			res => {
-				console.log(res);
-			},
-			err => {
-				console.log(err);
-			}
-
-		);
-	}
+	
 
 	get fn() : AbstractControl {
 		return this.register.controls['fn']
