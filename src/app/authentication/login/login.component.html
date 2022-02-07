@@ -26,13 +26,14 @@
 
             <div class="group fx-al-center">
                 <div class="form-group">
-                    <re-captcha (resolved)="resolved($event)" formControlName="reCaptcha" 
-                        siteKey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI">  
+                    <re-captcha formControlName="reCaptcha" 
+                        siteKey="6LdPK1MeAAAAAE-ysMDnea0wJRq91xJqlbVcAhcK">  
                     </re-captcha>
+                    <app-error [control]="reCaptcha" [submitted]="formSubmitted"></app-error>
                 </div>
 
                 <div class="form-group submit">
-                    <button mat-raised-button color="warn" >Login</button>
+                    <button class="login-button" mat-raised-button color="warn" [disabled]="loginForm.invalid" >Login</button>
                 </div>
             </div>
 
