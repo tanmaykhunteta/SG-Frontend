@@ -41,6 +41,7 @@ export class RegisterComponent implements OnInit {
 	}
 
 	submit() {
+	
 		this.formSubmitted = true;
 		if(this.register.invalid) return 
 
@@ -53,6 +54,12 @@ export class RegisterComponent implements OnInit {
 				} else {
 					this.ss.openSnackBar(response.message);
 				}
+			},
+			error:(err) => {
+				// if(err.code=="recaptcha-failed"){
+				// 	this.reCaptcha.setValue(null);
+				// }
+
 			}
 		})
 	}
@@ -87,9 +94,7 @@ export class RegisterComponent implements OnInit {
 	}
 
 
-	resolved(event : string) {
-		return;
-	}
+	
 
 	get fn() : AbstractControl {
 		return this.register.controls['fn']
@@ -121,5 +126,9 @@ export class RegisterComponent implements OnInit {
 
 	get cntry() : AbstractControl {
 		return this.register.controls['cntry']
+	}
+
+	get reCaptcha() : AbstractControl {
+		return this.register.controls['reCaptcha'];
 	}
 }

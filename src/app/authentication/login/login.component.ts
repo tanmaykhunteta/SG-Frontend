@@ -25,22 +25,21 @@ export class LoginComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
-  	resolved(event : string) {
-		console.log(event);
-		this.sendTokenToBackend(event);
-	}
+  	// resolved(event : string) {
+	// 	this.sendTokenToBackend(event);
+	// }
 
-	sendTokenToBackend(token: string){
-		this.auths.sendToken(token).subscribe(
-			res => {
-				console.log(res);
-			},
-			err => {
-				console.log(err);
-			}
+	// sendTokenToBackend(token: string){
+	// 	this.auths.sendToken(token).subscribe(
+	// 		res => {
+	// 			console.log(res);
+	// 		},
+	// 		err => {
+	// 			console.log(err);
+	// 		}
 
-		);
-	}
+	// 	);
+
 
   submit() {
 		this.formSubmitted = true;
@@ -65,7 +64,7 @@ export class LoginComponent implements OnInit {
 		return this.fb.group({
 			email : ['', [Validators.required, Validators.email]],
 			pswd : ['', [Validators.required, CustomValidators.password_pattern()]],
-			reCaptcha : ['', [Validators.required]]
+			reCaptcha : ['', [Validators.required]],
 		})
 	}
 
@@ -77,4 +76,7 @@ export class LoginComponent implements OnInit {
 		return this.loginForm.controls['pswd'];
 	}
 
+	get reCaptcha() : AbstractControl {
+		return this.loginForm.controls['reCaptcha'];
+	}
 }
