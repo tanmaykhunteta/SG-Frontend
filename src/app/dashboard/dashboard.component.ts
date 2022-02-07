@@ -5,10 +5,10 @@ import { StateService } from '../shared/services/state.service';
 
 @Component({
   selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
-export class UserComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit, OnDestroy {
 	session : IFullUser = {} as IFullUser;
 	unsub$ : Subject<boolean> = new Subject();
 

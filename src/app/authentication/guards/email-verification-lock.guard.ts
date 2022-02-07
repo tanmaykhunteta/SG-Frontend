@@ -26,11 +26,10 @@ export class EmailVerificationGuard implements CanActivate, CanLoad {
 		if(this.ss.isValidSession()) {
 			if(this.ss.matchAuthorizationValue({em_verified : false}))
 				return true
-			else {
-				this.router.navigate(['/login'])
-			}
+			else 
+				this.router.navigate(['/dashboard'])
 		} else {
-			this.router.navigate(['/dashboard'])
+			this.router.navigate(['/login'])
 		}
 
 		return false;

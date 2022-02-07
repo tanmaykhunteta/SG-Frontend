@@ -44,7 +44,7 @@ export class AuthService {
 		return this.http.put<APIResponse>(this.baseURL + "users/verify-email", {token}, {withCredentials: true})
 		.pipe(
 			tap((response) => {
-				if(response.success) {
+				if(response.success && response.data?.auth) {
 					this.ss.setSession(response.data?.auth);
 				}
 			})

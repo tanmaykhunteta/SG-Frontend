@@ -41,6 +41,7 @@ export class StateService {
 
     isValidSession(session : IFullUser | null = null) : Boolean {
 		const _ = session || this.sessionObj
+		console.log(_)
       	return _?._id ? true : false
     }
 
@@ -75,7 +76,7 @@ export class StateService {
     fetchSessionData() : void {
 		if(this.ds.getFromLocal(config.ACC_TOKEN_NAME)) {
 			const user : IFullUser = this.ds.getFromSessionStore(config.USER_DATA_NAME);
-			if(this.isValidSession(user)) {
+			if(!this.isValidSession(user)) {
 				this.ds.fetchSessionDataFromServer().subscribe(
 					(user) => {
 						if(user)

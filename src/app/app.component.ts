@@ -36,7 +36,8 @@ export class AppComponent {
 	watchForSessionChange(event : StorageEvent) {
 		if(event.key == config.ACC_TOKEN_NAME) {
 			if(event.newValue != event.oldValue) {
-				location.reload()
+				sessionStorage.removeItem(config.USER_DATA_NAME)
+				location.href = '/'
 			}
 		}
 	}

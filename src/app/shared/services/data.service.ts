@@ -4,7 +4,6 @@ import { APIResponse } from '../models/general.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { IFullUser } from '../models/user.model';
-import { config } from 'src/config/config';
 
 @Injectable({
   providedIn: 'root'
@@ -58,7 +57,6 @@ export class DataService {
 			const data = JSON.parse(sessionStorage.getItem(name) as string)
 			return data
 		} catch (error) {
-			console.error(error);
 			return null
 		}
 	}
