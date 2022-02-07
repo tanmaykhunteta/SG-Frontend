@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { StateService } from 'src/app/shared/services/state.service';
 import { DataService } from 'src/app/shared/services/data.service';
 import { ICountry } from 'src/app/shared/models/general.model';
-import { config } from 'src/config/config';
+import { config } from 'src/config/config'; 
 
 @Component({
   selector: 'app-register',
@@ -68,7 +68,7 @@ export class RegisterComponent implements OnInit {
 			yob : ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(this.yearRange.MIN), Validators.max(this.yearRange.MAX)]],
 			cntry : ['', Validators.required],
 			prvcyPlcy : ['', Validators.required],
-			// reCaptcha : ['', Validators.required]
+			reCaptcha : ['', Validators.required]
 		}, {
 			validators : [CustomValidators.match_pswds_validator()]
 		})

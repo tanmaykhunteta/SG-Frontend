@@ -21,8 +21,8 @@ export class AuthService {
 		return this.http.post<APIResponse>(this.baseURL + 'users/login', userData, {withCredentials : true})
 		.pipe(
 			tap((response) => {
-				if(response.success && response.data)
-					this.ss.setSession(response.data);
+				if(response.success && response.data?.auth)
+					this.ss.setSession(response.data.auth);
 			})
 		)
 	}
@@ -32,8 +32,8 @@ export class AuthService {
 		return this.http.post<APIResponse>(this.baseURL + 'users/register', userData, {withCredentials : true})
 		.pipe(
 			tap((response) => {
-				if(response.success && response.data) {
-					this.ss.setSession(response.data)
+				if(response.success && response.data?.auth) {
+					this.ss.setSession(response.data.auth)
 				}
 			})
 		)
@@ -45,14 +45,10 @@ export class AuthService {
 		.pipe(
 			tap((response) => {
 				if(response.success) {
-					this.ss.setSession(response.data);
+					this.ss.setSession(response.data?.auth);
 				}
 			})
 		)
 	}
 
-	sendToken(token: string){
-		return this.http.post<any>(this.baseURL + "users/recaptcha", {recaptcha: token})
-	  }
-	
 }

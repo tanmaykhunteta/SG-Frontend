@@ -25,7 +25,7 @@ export class DashboardGuard implements CanActivate, CanLoad {
 	}
   
 	verifyAuth() : boolean {
-		if(this.ss.isLoggedIn()) {
+		if(this.ss.isValidSession()) {
 			if(this.ss.matchAuthorizationValue({em_verified : false})) {
 				this.router.navigate(['/email-verification-required'])
 				return false

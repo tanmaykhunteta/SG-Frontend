@@ -6,8 +6,6 @@ export interface IBasicUser {
     gndr? : boolean,
     yob ?: number, 
     cntry? : string,
-    em_verified?: boolean,
-    em_verifiedOn? : boolean
 }
 
 export interface IRegister extends Omit<IBasicUser, '_id'>{
@@ -25,7 +23,12 @@ export interface ILogin {
 
 
 export interface IFullUser extends IBasicUser {
+    type: string,
+    em_verified : boolean,
+    ttl_reward : string,
 }
+
+
 
 class User implements IBasicUser {
     constructor(public _id = "", public fn ="", public ln ="", public email="") {}

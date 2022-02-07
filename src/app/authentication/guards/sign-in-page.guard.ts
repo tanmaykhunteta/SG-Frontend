@@ -12,7 +12,7 @@ export class SignInPageGuard implements CanActivate {
 	canActivate(
 	route: ActivatedRouteSnapshot,
 	state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-		if(this.ss.isLoggedIn()){
+		if(this.ss.isValidSession()){
 			this.router.navigate(['/dashboard']);
 			return false
 		} else {

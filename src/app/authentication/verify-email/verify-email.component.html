@@ -1,7 +1,7 @@
-<section>
+<section class='center-info-section'>
     <div class="content successful" *ngIf='isChecked && success'>
         <div class="image">
-            <img src="assets/images/email-verified.png" alt="email verified icon">
+            <img src="assets/images/email-verified.png" alt="email verified icon" class='info-logo'>
         </div>
         <div class="text">
             <b>Congratulations!</b> Your email is now verified 
@@ -13,7 +13,7 @@
 
     <div class="content successful" *ngIf='isChecked && !success'>
         <div class="image">
-            <img src="assets/images/email-unsuccessful.png" alt="email verified icon">
+            <img src="assets/images/email-unsuccessful.png" alt="email verified icon" class='info-logo'>
         </div>
         <div class="text">
             Email verification unsuccessfull, possible reason : {{message || "unknown"}}

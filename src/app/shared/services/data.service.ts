@@ -34,8 +34,15 @@ export class DataService {
 		this.storage.setItem(name, JSON.stringify(data))
 	}
 
+	
 	getFromLocal(name: string) : any {
-		return JSON.parse(this.storage.getItem(name) as string)
+		try {
+			const data = JSON.parse(this.storage.getItem(name) as string)
+			return data
+		} catch (error) {
+			console.error(error);
+			return null
+		}
 	}
 
 	removeFromLocalStore(name: string) {
@@ -47,7 +54,13 @@ export class DataService {
 	}
 
 	getFromSessionStore(name : string) {
-		return JSON.parse(sessionStorage.getItem(name) as string)
+		try {
+			const data = JSON.parse(sessionStorage.getItem(name) as string)
+			return data
+		} catch (error) {
+			console.error(error);
+			return null
+		}
 	}
 
 	removeFromSessionStore(name: string) {

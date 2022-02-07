@@ -24,7 +24,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
 	watchSession() : void {
 		this.ss.sessionObservable().pipe(takeUntil(this.unsub$)).subscribe((session) => {
-			if(this.ss.isLoggedIn()) {
+			if(this.ss.isValidSession()) {
 				this.session = session;
 			}
 		})

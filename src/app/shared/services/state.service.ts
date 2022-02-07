@@ -4,7 +4,7 @@ import {
 } from '@angular/material/snack-bar';
 import { config } from 'src/config/config';
 import { BehaviorSubject, Observable, of, takeUntil } from 'rxjs';
-import { IBasicUser, IFullUser } from '../models/user.model';
+import { IFullUser } from '../models/user.model';
 import { DataService } from './data.service';
 import { Router } from '@angular/router';
 
@@ -17,7 +17,11 @@ export class StateService {
     userSessionObservalbe$ : Observable<IFullUser>
     private sessionObj : IFullUser = {} as IFullUser;
 
-    constructor(private _snackBar: MatSnackBar, private ds: DataService, private route: Router) { 
+    constructor(
+		private _snackBar: MatSnackBar, 
+		private ds: DataService, 
+		private route: Router
+	) { 
 		this.userSession$ = new BehaviorSubject({} as IFullUser)
 		this.userSessionObservalbe$ = this.userSession$.asObservable();
     }
@@ -26,34 +30,61 @@ export class StateService {
       	return this.userSessionObservalbe$;
     }
 
+
     setSession(value : IFullUser) {
-		this.ds.saveToSessionStore(config.USER_DATA_NAME, value);
-		this.sessionObj = value;
-		this.userSession$.next(value);
+		const _ = {...value}
+		this.ds.saveToSessionStore(config.USER_DATA_NAME, _);
+		this.sessionObj = _;
+		this.userSession$.next(_);
     }  
 
-    isLoggedIn() : Boolean {
-      	return this.sessionObj?._id ? true : false
+
+    isValidSession(session : IFullUser | null = null) : Boolean {
+		const _ = session || this.sessionObj
+      	return _?._id ? true : false
     }
 
 
+	/**
+	 * matches (key : value passed) in checkFields with key value of user session
+	 * 
+	 * it return true if values matches else false
+	 * 
+	 * used for checking different kind of authorizations.
+	 * 
+	 * if multiple key: values are passed in checkFields, it returns false for the first occurance of unmatched values
+	 * 
+	 * @param checkFields
+	 * @returns 
+	 */
     matchAuthorizationValue(checkFields : {em_verified? : boolean}) : Boolean {
-		console.log(typeof this.sessionObj.em_verified + " " + typeof checkFields.em_verified)
 		if(checkFields.hasOwnProperty('em_verified') && this.sessionObj.em_verified != checkFields.em_verified) 
 			return false;
 
+		//multiple key: values check goes here (in future);
 		return true;
     }
 
 
-    fetchSessionData() : any{
+	/**
+	 * checks user data in sessionStore, if present it fetches it and then verifies if user data format is right
+	 * 
+	 * if data is not present or invalid it fetches user data from server via authToken
+	 * @returns void
+	 */
+    fetchSessionData() : void {
 		if(this.ds.getFromLocal(config.ACC_TOKEN_NAME)) {
 			const user : IFullUser = this.ds.getFromSessionStore(config.USER_DATA_NAME);
-			if(!user || !(user instanceof Object)) {
-				return this.ds.fetchSessionDataFromServer().subscribe((user) => this.setSession(user));
+			if(this.isValidSession(user)) {
+				this.ds.fetchSessionDataFromServer().subscribe(
+					(user) => {
+						if(user)
+							this.setSession(user)
+					});
+				return;
 			}
 
-			return this.setSession(user)
+			this.setSession(user)
 		}
     }
 
@@ -64,6 +95,7 @@ export class StateService {
 		this.setSession({} as IFullUser)
 		this.route.navigate(['/'])
     }
+
 
     openSnackBar(message : string) {
 		this._snackBar.open(message, 'close', {

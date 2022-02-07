@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { config } from 'src/config/config';
 import { DataService } from './shared/services/data.service';
 import { StateService } from './shared/services/state.service';
 
@@ -19,12 +20,25 @@ export class AppComponent {
 
 	watchSession() {
 		this.ss.sessionObservable().subscribe((user) => {
-			if(this.ss.isLoggedIn()) {
+			if(this.ss.isValidSession()) {
 				this.signedIn = true;
 			} else {
 				this.signedIn = false
 			}
 		})
+	}
+
+
+	/**
+	 * checks for accessToken change on other tabs
+	 */
+	@HostListener('window:storage', ['$event'])
+	watchForSessionChange(event : StorageEvent) {
+		if(event.key == config.ACC_TOKEN_NAME) {
+			if(event.newValue != event.oldValue) {
+				location.reload()
+			}
+		}
 	}
 
 	
