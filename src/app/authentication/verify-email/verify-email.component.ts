@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StateService } from 'src/app/shared/services/state.service';
+import { constants } from 'src/config/constants';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class VerifyEmailComponent implements OnInit {
 	success : boolean = false;
 	message : string = "";
 	isChecked : boolean = false;
-
+	
 	constructor(
 		private auth : AuthService, 
 		private ar: ActivatedRoute,
@@ -28,7 +29,6 @@ export class VerifyEmailComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		
 	}
 
 	setStatus(success: boolean, message: string) {
@@ -37,11 +37,14 @@ export class VerifyEmailComponent implements OnInit {
 		this.message = message;
 	}
 
+	
 	verifyEmail(token : string) {
 		this.auth.verifyEmail(token)
 		.subscribe({
 			next : (response)=>{
 				this.setStatus(response.success, response.message)
+				if(response.success)
+					this.ss.displayReward({type: "em_verified"})
 			}
 		})
 	}

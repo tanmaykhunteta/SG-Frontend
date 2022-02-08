@@ -1,5 +1,3 @@
-import { environment } from "src/environments/environment";
-
 export let config = {
     ACC_TOKEN_NAME :  "authToken", //local storage name
     USER_DATA_NAME : "user", //session storage name

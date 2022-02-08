@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { config } from 'src/config/config';
+import { IFullUser } from './shared/models/user.model';
 import { DataService } from './shared/services/data.service';
 import { StateService } from './shared/services/state.service';
 
@@ -9,10 +10,13 @@ import { StateService } from './shared/services/state.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-	title = 'frontend';
+	title = 'Survey Gravity';
 	signedIn : boolean = false
+	user : IFullUser | null = null;
 
-	constructor(private ss: StateService, private ds : DataService) {
+	constructor(
+		private ss: StateService, 
+	) {
 		this.ss.fetchSessionData();
 		this.watchSession();
 	}
@@ -22,8 +26,10 @@ export class AppComponent {
 		this.ss.sessionObservable().subscribe((user) => {
 			if(this.ss.isValidSession()) {
 				this.signedIn = true;
+				this.user = user
 			} else {
 				this.signedIn = false
+				this.user = null
 			}
 		})
 	}
@@ -36,13 +42,12 @@ export class AppComponent {
 	watchForSessionChange(event : StorageEvent) {
 		if(event.key == config.ACC_TOKEN_NAME) {
 			if(event.newValue != event.oldValue) {
-				sessionStorage.removeItem(config.USER_DATA_NAME)
 				location.href = '/'
 			}
 		}
 	}
-
 	
+
 	logout() {
 		this.ss.logout();
 	}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IRegister } from 'src/app/shared/models/user.model';
 import { AuthService } from '../services/auth.service';
 import { CustomValidators } from 'src/app/shared/validators/custom.validators';
@@ -40,8 +40,8 @@ export class RegisterComponent implements OnInit {
 		this.getCountries();
 	}
 
+
 	submit() {
-	
 		this.formSubmitted = true;
 		if(this.register.invalid) return 
 
@@ -51,19 +51,18 @@ export class RegisterComponent implements OnInit {
 				if(response.success) {
 					this.ss.openSnackBar('registration successful');
 					this.router.navigate(['/email-verification-required'])
+					setTimeout(() => this.ss.displayReward({type: "signed_up"}), 500)
 				} else {
 					this.ss.openSnackBar(response.message);
 				}
 			},
-			error:(err) => {
-				// if(err.code=="recaptcha-failed"){
-				// 	this.reCaptcha.setValue(null);
-				// }
-
+			error: (err) => {
+				
 			}
 		})
 	}
 
+	
 	generateForm() : FormGroup {
 		return this.fb.group({
 			fn : ['', [Validators.required]],

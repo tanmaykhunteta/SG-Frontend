@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import {
-	MatSnackBar
-} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { DisplayNewRewardComponent } from '../modules/display-new-reward/display-new-reward.component';
 import { config } from 'src/config/config';
 import { BehaviorSubject, Observable, of, takeUntil } from 'rxjs';
 import { IFullUser } from '../models/user.model';
 import { DataService } from './data.service';
 import { Router } from '@angular/router';
+import { IReward } from '../models/general.model';
 
 
 @Injectable({
@@ -19,6 +20,7 @@ export class StateService {
 
     constructor(
 		private _snackBar: MatSnackBar, 
+		private dialog : MatDialog,
 		private ds: DataService, 
 		private route: Router
 	) { 
@@ -33,7 +35,7 @@ export class StateService {
 
     setSession(value : IFullUser) {
 		const _ = {...value}
-		this.ds.saveToSessionStore(config.USER_DATA_NAME, _);
+		this.ds.saveToLocal(config.USER_DATA_NAME, _);
 		this.sessionObj = _;
 		this.userSession$.next(_);
     }  
@@ -41,7 +43,6 @@ export class StateService {
 
     isValidSession(session : IFullUser | null = null) : Boolean {
 		const _ = session || this.sessionObj
-		console.log(_)
       	return _?._id ? true : false
     }
 
@@ -75,16 +76,16 @@ export class StateService {
 	 */
     fetchSessionData() : void {
 		if(this.ds.getFromLocal(config.ACC_TOKEN_NAME)) {
-			const user : IFullUser = this.ds.getFromSessionStore(config.USER_DATA_NAME);
+			const user : IFullUser = this.ds.getFromLocal(config.USER_DATA_NAME);
 			if(!this.isValidSession(user)) {
 				this.ds.fetchSessionDataFromServer().subscribe(
 					(user) => {
 						if(user)
 							this.setSession(user)
-					});
-				return;
+					}
+				);
+				return
 			}
-
 			this.setSession(user)
 		}
     }
@@ -92,7 +93,7 @@ export class StateService {
 
     logout() {
 		this.ds.removeFromLocalStore(config.ACC_TOKEN_NAME);
-		this.ds.removeFromSessionStore(config.USER_DATA_NAME)
+		this.ds.removeFromLocalStore(config.USER_DATA_NAME)
 		this.setSession({} as IFullUser)
 		this.route.navigate(['/'])
     }
@@ -105,4 +106,9 @@ export class StateService {
 			duration : 5000
 		});
     }
+
+
+	displayReward(data : IReward) {
+		this.dialog.open(DisplayNewRewardComponent, {data});
+	}
 }

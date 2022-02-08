@@ -18,7 +18,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
-    MatToolbarModule
+    MatToolbarModule,
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,
