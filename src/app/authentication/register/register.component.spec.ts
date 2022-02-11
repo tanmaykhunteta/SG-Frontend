@@ -24,6 +24,5 @@ describe('RegisterComponent', () => {
 	});
 
 	it('should have countries', () => {
-		expect(component.countries)
 	})
 });

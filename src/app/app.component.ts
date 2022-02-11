@@ -1,13 +1,13 @@
-import { Component, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { config } from 'src/config/config';
 import { IFullUser } from './shared/models/user.model';
-import { DataService } from './shared/services/data.service';
 import { StateService } from './shared/services/state.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
 	title = 'Survey Gravity';
@@ -17,7 +17,6 @@ export class AppComponent {
 	constructor(
 		private ss: StateService, 
 	) {
-		this.ss.fetchSessionData();
 		this.watchSession();
 	}
 

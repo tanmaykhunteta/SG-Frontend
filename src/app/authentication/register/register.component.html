@@ -77,7 +77,7 @@
 					<div class="form-group">
 						<mat-form-field appearance="outline">
 							<mat-select formControlName='cntry'>
-								<mat-option *ngFor='let country of countries' value="{{country.name}}">{{country.name}}</mat-option>
+								<mat-option *ngFor='let country of countries$ | async' value="{{country.name}}">{{country.name}}</mat-option>
 							</mat-select>
 							<mat-label>Country</mat-label>
 						</mat-form-field>

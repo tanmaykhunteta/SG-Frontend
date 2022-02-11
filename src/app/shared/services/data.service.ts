@@ -24,6 +24,7 @@ export class DataService {
 		)
 	}
 
+
 	getCountries(returnFields: string[]) : Observable<APIResponse> {
 		return this.http.get<APIResponse>(this.baseURL + "countries", {params: {return : returnFields}, withCredentials: true})
 	}
@@ -39,7 +40,6 @@ export class DataService {
 			const data = JSON.parse(this.storage.getItem(name) as string)
 			return data
 		} catch (error) {
-			console.error(error);
 			return null
 		}
 	}

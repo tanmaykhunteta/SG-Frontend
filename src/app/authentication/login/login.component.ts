@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { ILogin, IRegister } from 'src/app/shared/models/user.model';
+import { ILogin } from 'src/app/shared/models/user.model';
 import { AuthService } from '../services/auth.service';
-import { CustomErrors, CustomValidators } from 'src/app/shared/validators/custom.validators';
 import { Router } from '@angular/router';
 import { StateService } from 'src/app/shared/services/state.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit {
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IRegister } from 'src/app/shared/models/user.model';
 import { AuthService } from '../services/auth.service';
@@ -8,16 +8,19 @@ import { StateService } from 'src/app/shared/services/state.service';
 import { DataService } from 'src/app/shared/services/data.service';
 import { ICountry } from 'src/app/shared/models/general.model';
 import { config } from 'src/config/config'; 
+import { map, Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class RegisterComponent implements OnInit {
 	register : FormGroup; 
 	formSubmitted : boolean = false;
-	countries : ICountry[] = [];
+	countries$ : Observable<ICountry[]> | null = null;
 	yearRange : { MIN : number, MAX : number};
 
 	constructor(
@@ -80,16 +83,9 @@ export class RegisterComponent implements OnInit {
 		})
 	}
 
+
 	getCountries() {
-		this.ds.getCountries(['name']).subscribe({
-			next : (response) => {
-				if(response.success) {
-					this.countries = response.data || [];
-				} else {
-					this.ss.openSnackBar(response.message)
-				}
-			}
-		})
+		this.countries$ = this.ds.getCountries(['name']).pipe(map((response) => response.data));
 	}
 
 
