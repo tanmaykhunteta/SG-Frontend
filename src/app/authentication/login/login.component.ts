@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { ILogin, IRegister } from 'src/app/shared/models/user.model';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ILogin } from 'src/app/shared/models/user.model';
 import { AuthService } from '../services/auth.service';
-import { CustomErrors, CustomValidators } from 'src/app/shared/validators/custom.validators';
+import { CustomValidators } from 'src/app/shared/validators/custom.validators';
 import { Router } from '@angular/router';
 import { StateService } from 'src/app/shared/services/state.service';
 

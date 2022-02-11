@@ -5,6 +5,7 @@ import { IRegister, ILogin } from 'src/app/shared/models/user.model';
 import { Observable, tap } from 'rxjs';
 import { APIResponse } from 'src/app/shared/models/general.model';
 import { StateService } from 'src/app/shared/services/state.service';
+import { ObserversModule } from '@angular/cdk/observers';
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +51,33 @@ export class AuthService {
 			})
 		)
 	}
+
+	requestResetPswd(resetDetails: string): Observable<APIResponse> {
+		return this.http.post<APIResponse>(this.baseURL + "users/request-reset-password", resetDetails)
+		.pipe(
+			tap((response) => {
+				if(response.success && response.data?.auth) {
+					// this.ss.setSession(response.data?.auth);
+				}
+			})
+		)
+	}
+
+	resetPassword(resetDetails: any): Observable<APIResponse> {
+		console.log(resetDetails);
+		return this.http.put<APIResponse>(this.baseURL + "users/reset-password", resetDetails)
+		.pipe(
+			tap((response) => {
+				if(response.success && response.data?.auth) {
+					// this.ss.setSession(response.data?.auth);
+				}
+			})
+		)
+	}
+
+
+	verifyToken(token: string): Observable<APIResponse> {
+		return this.http.post<APIResponse>(this.baseURL + "users/verify-token", {token});
+	} 
 
 }

@@ -10,6 +10,8 @@ const routes: Routes = [
   { path: 'verify-email', loadChildren: () => import('./verify-email/verify-email.module').then(m => m.VerifyEmailModule) },
   { path: 'register', canActivate: [SignInPageGuard], loadChildren: () => import('./register/register.module').then(m => m.RegisterModule) },
   { path: 'login', canActivate: [SignInPageGuard], loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
+  {path: 'reset-password', loadChildren: () => import('./reset-password/reset-password.module').then(m => m.ResetPasswordModule)},
+  {path: 'request-reset-password', loadChildren: () => import('./request-reset-password/request-reset-password.module').then(m => m.RequestResetPasswordModule)}
 ];
 
 
