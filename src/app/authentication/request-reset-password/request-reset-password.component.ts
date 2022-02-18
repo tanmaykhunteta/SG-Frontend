@@ -23,6 +23,7 @@ export class RequestResetPasswordComponent implements OnInit {
 
   
   submit() {
+      console.log(this.resetForm.value);
       this.formSubmitted = true;
       if(this.resetForm.invalid) {
         return 

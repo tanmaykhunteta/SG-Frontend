@@ -53,6 +53,7 @@ export class AuthService {
 	}
 
 	requestResetPswd(resetDetails: string): Observable<APIResponse> {
+		console.log(resetDetails);
 		return this.http.post<APIResponse>(this.baseURL + "users/request-reset-password", resetDetails)
 		.pipe(
 			tap((response) => {

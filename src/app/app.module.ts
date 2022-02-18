@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GlobalInterceptor } from './shared/interceptors/global.interceptor';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { AvatarModule } from 'primeng/avatar';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AvatarModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,

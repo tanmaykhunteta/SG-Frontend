@@ -2,6 +2,7 @@ import { Component, HostListener } from '@angular/core';
 import { config } from 'src/config/config';
 import { DataService } from './shared/services/data.service';
 import { StateService } from './shared/services/state.service';
+import { IFullUser } from './shared/models/user.model';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import { StateService } from './shared/services/state.service';
 })
 export class AppComponent {
 	title = 'frontend';
+	session : IFullUser = {} as IFullUser;
 	signedIn : boolean = false
 
 	constructor(private ss: StateService, private ds : DataService) {
@@ -22,6 +24,7 @@ export class AppComponent {
 		this.ss.sessionObservable().subscribe((user) => {
 			if(this.ss.isValidSession()) {
 				this.signedIn = true;
+				this.session = user;
 			} else {
 				this.signedIn = false
 			}

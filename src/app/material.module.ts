@@ -19,7 +19,8 @@ import { MatSelectModule } from '@angular/material/select';
 import {MatProgressBarModule} from '@angular/material/progress-bar'; 
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatRadioModule } from '@angular/material/radio'
-import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatMenuModule} from '@angular/material/menu';
 const material =[
     MatCardModule,
     MatInputModule,
@@ -40,7 +41,8 @@ const material =[
     MatProgressBarModule,
     MatSnackBarModule,
     MatRadioModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatMenuModule
 ];
 
 @NgModule({
