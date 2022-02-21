@@ -20,7 +20,7 @@ import { AvatarModule } from 'primeng/avatar';
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
-    MatToolbarModule
+    MatToolbarModule,
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,

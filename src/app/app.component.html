@@ -1,7 +1,17 @@
-<mat-toolbar style='background : transparent; padding: 0 30px'>
+<mat-toolbar class='header' style='background : transparent; padding: 0 30px'>
     <img src="assets/images/gravity.png" alt="logo" style='width: 50px; margin-right: 8px'>
     <span>Survey Gravity</span>
     <span class="example-spacer"></span>
+    
+    <div class="user-balance">
+        <div class="coin">
+            <img src="assets/images/coin.png" alt="reward-coin">
+        </div>
+        <div class="count">
+            {{user?.ttl_reward || 0}}
+        </div>
+    </div>
+
     <div class="nav" *ngIf='!signedIn'>
         <button mat-raised-button color='warn' class="example-icon" aria-label="route to login" routerLink="/login" routerLinkActive="hide">Login</button>
         <button mat-raised-button color='warn' class="example-icon" aria-label="route to register" routerLink="/register" routerLinkActive="hide">Register</button>

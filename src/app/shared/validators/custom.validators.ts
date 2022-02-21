@@ -51,7 +51,7 @@ export class CustomValidators {
                 errors[CustomErrors.password.noUpper] = true
                 invalid = true
             }
-            else if (p.search(/[$@&*!\(\)\.]/) < 0) {
+            else if (p.search(/[$@&*!\.]/) < 0) {
                 errors[CustomErrors.password.noSpecialChar] = true;
                 invalid = true
             }

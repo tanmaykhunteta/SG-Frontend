@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ILogin } from 'src/app/shared/models/user.model';
 import { AuthService } from '../services/auth.service';
-import { CustomValidators } from 'src/app/shared/validators/custom.validators';
 import { Router } from '@angular/router';
 import { StateService } from 'src/app/shared/services/state.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit {
 
-  loginForm : FormGroup = this.generateForm(); 
+  	loginForm : FormGroup = this.generateForm(); 
 	formSubmitted : boolean = false;
 	constructor(
 		private fb : FormBuilder, 
@@ -25,23 +25,9 @@ export class LoginComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
-  	// resolved(event : string) {
-	// 	this.sendTokenToBackend(event);
-	// }
-
-	// sendTokenToBackend(token: string){
-	// 	this.auths.sendToken(token).subscribe(
-	// 		res => {
-	// 			console.log(res);
-	// 		},
-	// 		err => {
-	// 			console.log(err);
-	// 		}
-
-	// 	);
 
 
-  submit() {
+  	submit() {
 		this.formSubmitted = true;
 		if(this.loginForm.invalid) {
 			return 
@@ -63,7 +49,7 @@ export class LoginComponent implements OnInit {
   	generateForm() : FormGroup {
 		return this.fb.group({
 			email : ['', [Validators.required, Validators.email]],
-			pswd : ['', [Validators.required, CustomValidators.password_pattern()]],
+			pswd : ['', [Validators.required]],
 			reCaptcha : ['', [Validators.required]],
 		})
 	}

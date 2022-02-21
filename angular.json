@@ -54,6 +54,10 @@
                 {
                   "replace": "src/config/config.ts",
                   "with" : "src/config/config.prod.ts"
+                },
+                {
+                  "replace": "src/config/constants.ts",
+                  "with" : "src/config/constants.prod.ts"
                 }
               ],
               "outputHashing": "all"

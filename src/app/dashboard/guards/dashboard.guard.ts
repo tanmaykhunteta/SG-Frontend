@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { StateService } from 'src/app/shared/services/state.service';
 
 @Injectable({
@@ -12,28 +12,41 @@ export class DashboardGuard implements CanActivate, CanLoad {
 		private router: Router
 	) {}
 
+
     canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-		return this.verifyAuth()
+		return this.verifySession()
     }
+
 
 	canLoad(
 	route: Route, 
 	segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-		return this.verifyAuth()
+		return this.verifySession()
 	}
   
-	verifyAuth() : boolean {
-		if(this.ss.isValidSession()) {
-			if(this.ss.matchAuthorizationValue({em_verified : false})) {
-				this.router.navigate(['/email-verification-required'])
-				return false
-			}
-			return true;
-		}
 
-		this.router.navigate(['/login']);
-		return false;
+	verifySession() : Observable<boolean>{
+		return this.ss.sessionObservable().pipe(
+			map((user) => {	
+				console.count('dashboard')
+				if(this.ss.isValidSession(user)) {
+					return this.handle_authorization();
+				} else {
+					this.router.navigate(['/login']);
+					return false
+				}
+			}),
+		)
+	}
+
+
+	handle_authorization() : boolean {
+		if(this.ss.matchAuthorizationValue({em_verified : false})) {
+			this.router.navigate(['/email-verification-required'])
+			return false
+		}
+		return true;
 	}
 }

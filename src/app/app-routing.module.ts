@@ -4,7 +4,7 @@ import { DashboardGuard } from './dashboard/guards/dashboard.guard';
 
 const routes: Routes = [
   { path: '', loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule) },
-  { path: 'dashboard', canLoad: [DashboardGuard], canActivate: [DashboardGuard], loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) }
+  { path: 'dashboard', canLoad: [DashboardGuard], canActivate: [DashboardGuard], loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
 ];
 
 @NgModule({

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IRegister } from 'src/app/shared/models/user.model';
 import { AuthService } from '../services/auth.service';
 import { CustomValidators } from 'src/app/shared/validators/custom.validators';
@@ -8,16 +8,19 @@ import { StateService } from 'src/app/shared/services/state.service';
 import { DataService } from 'src/app/shared/services/data.service';
 import { ICountry } from 'src/app/shared/models/general.model';
 import { config } from 'src/config/config'; 
+import { map, Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class RegisterComponent implements OnInit {
 	register : FormGroup; 
 	formSubmitted : boolean = false;
-	countries : ICountry[] = [];
+	countries$ : Observable<ICountry[]> | null = null;
 	yearRange : { MIN : number, MAX : number};
 
 	constructor(
@@ -40,8 +43,8 @@ export class RegisterComponent implements OnInit {
 		this.getCountries();
 	}
 
+
 	submit() {
-	
 		this.formSubmitted = true;
 		if(this.register.invalid) return 
 
@@ -51,19 +54,18 @@ export class RegisterComponent implements OnInit {
 				if(response.success) {
 					this.ss.openSnackBar('registration successful');
 					this.router.navigate(['/email-verification-required'])
+					setTimeout(() => this.ss.displayReward({type: "signed_up"}), 500)
 				} else {
 					this.ss.openSnackBar(response.message);
 				}
 			},
-			error:(err) => {
-				// if(err.code=="recaptcha-failed"){
-				// 	this.reCaptcha.setValue(null);
-				// }
-
+			error: (err) => {
+				
 			}
 		})
 	}
 
+	
 	generateForm() : FormGroup {
 		return this.fb.group({
 			fn : ['', [Validators.required]],
@@ -81,16 +83,9 @@ export class RegisterComponent implements OnInit {
 		})
 	}
 
+
 	getCountries() {
-		this.ds.getCountries(['name']).subscribe({
-			next : (response) => {
-				if(response.success) {
-					this.countries = response.data || [];
-				} else {
-					this.ss.openSnackBar(response.message)
-				}
-			}
-		})
+		this.countries$ = this.ds.getCountries(['name']).pipe(map((response) => response.data));
 	}
 
 
