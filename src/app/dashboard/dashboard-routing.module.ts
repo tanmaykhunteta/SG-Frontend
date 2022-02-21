@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard.component';
 const routes: Routes = [
   { path: '', component: DashboardComponent, children : []},
   { path: 'registration/continue', loadChildren: () => import('./continue-registration/continue-registration.module').then(m => m.ContinueRegistrationModule) },
+  { path: 'reward-history', loadChildren: () => import('./reward-history/reward-history.module').then(m => m.RewardHistoryModule) },
 ];
 
 @NgModule({

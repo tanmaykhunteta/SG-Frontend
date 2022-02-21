@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
-import { APIResponse } from '../models/general.model';
-import { HttpClient } from '@angular/common/http';
+import { APIResponse, Pagination } from '../models/general.model';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { IFullUser } from '../models/user.model';
 
@@ -27,6 +27,13 @@ export class DataService {
 
 	getCountries(returnFields: string[]) : Observable<APIResponse> {
 		return this.http.get<APIResponse>(this.baseURL + "countries", {params: {return : returnFields}, withCredentials: true})
+	}
+
+
+	getRewardHistory(moveToPage : number, pageSize : number) {
+		let param = new HttpParams()
+		param = param.appendAll({page : moveToPage, pageSize: pageSize})
+		return this.http.get<APIResponse>(this.baseURL + "users/reward-history", { params : param, withCredentials : true})
 	}
 
 

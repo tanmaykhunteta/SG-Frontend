@@ -16,3 +16,12 @@ export interface ICountry {
 export interface IReward {
 	type : keyof typeof constants.REWARD
 }
+
+
+export interface Pagination {
+	totalPage : number,
+	page : number,
+	pageSize : number,
+	next : number,
+	prev : number
+}
